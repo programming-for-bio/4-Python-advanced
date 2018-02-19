@@ -87,7 +87,7 @@ class Assembler6():
         self._get_eulerian_path()
     
     def test(self, nreads=[500, 1000, 5000], kmer=[10, 20, 30]):
-        """test over many different parameters to see how they affect our ability to assemble the target sequence"""
+        """tests over many different parameters to see how they affect our ability to assemble the target sequence"""
         result_dict = {}
         for n in nreads:
             for k in kmer:
@@ -99,7 +99,7 @@ class Assembler6():
         return result_dict
 
     def plot(self):
-        """return a toyplot graph object of the assembly map"""
+        """returns a toyplot graph object of the assembly map"""
         e0 = [i[0] for i in self.edges]
         e1 = [i[1] for i in self.edges]
         toyplot.graph(e0, e1, tmarker=">", vlstyle={'font-size': '8px'});

@@ -1,15 +1,12 @@
 #!/usr/bin/env python
 
-
-import toyplot
 import random
-import debruijn_funcs
+import toyplot
 from eulerian import eulerian_path
 
 class Assembler6():
     """
-    An object for constructing a debuijn graph from kmers of random 
-reads
+    An object for constructing a debuijn graph from kmers of random reads
     """
     def __init__(self, target_length, random_seed=123):
 
@@ -27,15 +24,13 @@ reads
         
     ## private functions
     def _random_sequence(self, target_length):
-        self.target = "".join((random.choice("ACGT") for i in 
-range(target_length)))
+        self.target = "".join((random.choice("ACGT") for i in range(target_length)))
         
         
     def _get_reads(self, nreads, rlen):
         "returns nreads of len rlen drawn from string"  
         last_start = len(self.target) - rlen
-        startpoints = [random.randint(0, last_start) for i in 
-range(nreads)]
+        startpoints = [random.randint(0, last_start) for i in range(nreads)]
         self.reads = [self.target[i:i+rlen] for i in startpoints]
         
         
@@ -52,8 +47,7 @@ range(nreads)]
     
 
     def _reads_to_kmers(self, k):
-        "stores kmers to dict uses update to join together kmer dict 
-keys"
+        "stores kmers to dict uses update to join together kmer dict keys"
         kmers = {}
         for read in self.reads:
             ikmers = self._get_kmers(read, k)
@@ -93,8 +87,7 @@ keys"
     def _plot(self):
         e0 = [i[0] for i in self.edges]
         e1 = [i[1] for i in self.edges]
-        toyplot.graph(e0, e1, tmarker=">", vlstyle={'font-size': 
-'8px'});
+        toyplot.graph(e0, e1, tmarker=">", vlstyle={'font-size': '8px'});
     
     
     ## public function
@@ -104,30 +97,23 @@ keys"
         self._reads_to_kmers(k)
         self._get_debruijn_edges()
         self._get_eulerian_path()
-        self._plot()              #automatically generate plot when 
-running obj.run()
+        self._plot()              #automatically generate plot when running obj.run()
         
         
-    def test(self, nreads = [500, 1000, 5000], kmer = [10, 20, 30]): #i 
-want to allow the user to select their own test parameters, hopefully 
-this works
+    def test(self, nreads = [500, 1000, 5000], kmer = [10, 20, 30]): #i want to allow the user to select their own test parameters, hopefully this works
         "test different parameters for effect on assembly"
         result_dict = {}
                    
         
         for i in [500, 1000, 5000]:     #for each input number of reads,
-            for j in [10, 20, 30]:   #analyze each read by input kmer 
-parameter
+            for j in [10, 20, 30]:   #analyze each read by input kmer parameter
                 self.run(nreads = i, rlen = 50, k = j)
                 
                 #store result
                 result = self.assembly == self.target
-                result_dict[(i,j)] = result    # i = number of reads, j 
-= kmer parameter
+                result_dict[(i,j)] = result    # i = number of reads, j = kmer parameter
                 
             return result_dict
         
-    def plot(self, nreads, rlen, k): #can't figure out how to make this 
-work but might be cool
-        self._plot() #nonetype objects are not iterable? need to put 
-silent fxns inside this? maybe fix later
+    def plot(self, nreads, rlen, k): #can't figure out how to make this work but might be cool
+        self._plot() #nonetype objects are not iterable? need to put silent fxns inside this? maybe fix later

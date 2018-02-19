@@ -1,6 +1,6 @@
 ## Jessica Hoch 
 
-class Assembler4():
+class Assembler5():
     """
     An object for constructing a debuijn graph from kmers of random reads
     """
